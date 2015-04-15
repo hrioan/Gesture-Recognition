@@ -24,7 +24,8 @@ start_gestures = [1 80 120 160 200 240 280 360 400 480 520 560 620 680 740 780 8
 %% 1: visualize each frame repeatedly with image
 for i = start_gestures(17):1117
    
-    figure(f1);  %set figure f1 current
+    %figure(f1);  %set figure f1 current
+    clf(f1);
     
     iptstr = sprintf('./Sample00003_Export/Sample00003_%d.mat',i);
     %disp(['Frame:',i,'Path:',iptstr]);
@@ -38,9 +39,11 @@ for i = start_gestures(17):1117
     
     % Plot data
     subplot(2,4,1:2);
-    title(sprintf('RGB Data : Frame: %d',i));
+    msg = sprintf('RGB Data : Frame: %d',i);
+    title(msg);
+    hold on
     imshow(S.Frame.RGB,'Border','tight');
-    hold on 
+    hold on
     
     %% 2: For each frame plot its skeleton joints
     for j=1:20
