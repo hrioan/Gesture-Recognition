@@ -17,7 +17,11 @@ start_gestures = [1 80 120 160 200 240 280 360 400 480 520 560 620 680 740 780 8
 % numbers of frames to be extracted and used in training
 nfrm = 20;
 
-P = zeros(20,3,nfrm);
+%P = zeros(3,20,nfrm);
+
+% for each joint there will be a struct with the following data
+P = struct('JointType','Hipcenter','TimeMtx', zeros(3,nfrm));
+
 
 f1 = figure('Name','Skeleton Frame','NumberTitle','off');
 
@@ -58,14 +62,20 @@ for i = startFr:endFr
     subplot(2,2,3:4);
     skeletonViewer(sjoint, false, i, S.Frame.Skeleton.JointType,'Normalized');
     
-   
     % Keep data to P matrix 
     z = z + 1;
     if (z > nfrm)
         fprintf('Gathered the nesessary frames for computation');
         break;
     end
-    P(:,:,z) = sjoint(:,:);
+    
+    sjoint';
+    %P(:,:,z) = sjoint';
+    
+    for j= 1:20
+        P(j).JointType = S.Frame.Skeleton.JointType(j);
+        P(j).TimeMtx(:,z) = sjoint(j,:)';
+    end
     
     refreshdata;
     drawnow;
@@ -74,3 +84,25 @@ for i = startFr:endFr
     clear functions
     
 end
+
+fprintf('-- Step 1 Complete -- Continue?');
+pause;
+
+%% 2. Apply Vector Median Filtering
+
+% initial window w = 3
+for i = 1:20
+    P(i).TimeMtx = medfilt2(P(i).TimeMtx,[1,3]);
+end
+
+fprintf('-- Step 2 Complete -- Continue?');
+pause;
+
+%% 3. Angle Based Pose Descriptor
+
+
+
+
+
+
+
