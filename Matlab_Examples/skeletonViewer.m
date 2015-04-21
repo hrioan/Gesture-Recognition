@@ -46,6 +46,9 @@ for i = 1:length(SkeletonConnectionMap)
     plot3(X2,Y2,Z2, '--rs', 'LineWidth',2, 'MarkerEdgeColor','k', 'MarkerFaceColor','b','MarkerSize',10 );
 
     text(X1,Y1,Z1, joints(SkeletonConnectionMap(i,1)));
+    xlabel('x');
+    ylabel('y');
+    zlabel('z');
     view(184,-88) % also -180,-72 is good to give a sense of depth
 end
 

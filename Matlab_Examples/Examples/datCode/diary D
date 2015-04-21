@@ -1,0 +1,96 @@
+MEROS D
+Meros D.1
+------------
+Figure1 shows the data for 4 classes
+Press any key to continue
+Meros D.2/D.3
+------------
+Figure2 shows the data for the fusioned classes
+Press any key to continue
+Meros D.4
+------------
+Mean and covarince based on maximum likelihood estimation
+Mean for class ù1 :
+
+m1 =
+
+    0.9751    0.9860
+
+Mean for class ù2 :
+
+m2 =
+
+    2.9817    0.9947
+
+Covarience matrix for class ù1 :
+
+S1 =
+
+    1.5573    1.3473
+    1.3473    1.5469
+
+Covarience matrix for class ù1 :
+
+S2 =
+
+    1.6862    1.4641
+    1.4641    1.6335
+
+Press any key to continue
+Meros D.5
+------------
+Euclidean method for the data
+Euclidean method for the data gives error (%) :
+
+ans =
+
+   24.6000
+
+Bayesian method for the data
+Bayesian method for the data gives error (%) :
+
+ans =
+
+    5.5000
+
+Press any key to continue
+Meros D.6
+------------
+Figure3 demonstrates the projection of our data 
+using the PCA trasform
+Press any key to continue
+Meros D.7
+------------
+Euclidean method for the pca data gives error (%) :
+
+ans =
+
+   50.6000
+
+Bayesian method for the pca data gives error (%) :
+
+ans =
+
+    50
+
+Press any key to continue
+Meros D.8
+------------
+Figure4 demonstrates the projection of our data 
+using the PCA trasform
+Press any key to continue
+Meros D.9
+------------
+Euclidean method for the pca data gives error (%) :
+
+ans =
+
+    5.6000
+
+Bayesian method for the pca data gives error (%) :
+
+ans =
+
+     5
+
+Press any key to exit

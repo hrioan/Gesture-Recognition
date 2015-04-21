@@ -1,0 +1,91 @@
+MEROS C
+Meros C.1/C.2
+------------
+Figure1 shows the data for 4 classes
+Press any key to continue
+Meros C.3
+------------
+Mean and covarince based on maximum likelihood estimation
+Mean for class ù1 :
+
+m1 =
+
+    0.0034    0.0579
+
+Mean for class ù2 :
+
+m2 =
+
+    1.9469    1.9142
+
+Mean for class ù3 :
+
+m3 =
+
+    1.9539   -0.0165
+
+Mean for class ù4 :
+
+m4 =
+
+    4.0096    2.0059
+
+Covarience matrix for class ù1 :
+
+S1 =
+
+    0.6067    0.4353
+    0.4353    0.6493
+
+Covarience matrix for class ù2 :
+
+S2 =
+
+    0.6192    0.4554
+    0.4554    0.7216
+
+Covarience matrix for class ù3 :
+
+S3 =
+
+    0.6168    0.4444
+    0.4444    0.6580
+
+Covarience matrix for class ù4 :
+
+S4 =
+
+    0.6427    0.4050
+    0.4050    0.5640
+
+Press any key to continue
+Meros C.4
+------------
+Euclidean method for the data
+Euclidean method for the pca data gives error (%) :
+
+ans =
+
+   17.7000
+
+Press any key to continue
+Meros C.5
+------------
+Mahalanobis method for the data
+Mahalanobis method for the pca data gives error (%) :
+
+ans =
+
+   13.3000
+
+Press any key to continue
+Meros C.6
+------------
+Bayesian method for the data
+Bayesian method for the pca data gives error (%) :
+
+ans =
+
+   19.7000
+
+Press any key to exit

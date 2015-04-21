@@ -1,0 +1,54 @@
+MEROS E
+Meros E.1
+------------
+Figure1 shows the data for 4 classes
+Figure2 shows the data for the fusioned classes
+Press any key to continue
+Meros E.2/E.3
+------------
+Expectation-Maximazation algorithm for 100 loops
+Probability, mean and covarience for class 1 : 
+Probability : 
+
+ans =
+
+    0.4939
+
+Mean : 
+
+mean1 =
+
+    0.9623    0.9927
+
+Covarience : 
+
+cov1 =
+
+    1.5302    1.3314
+    1.3314    1.5287
+
+Probability, mean and covarience for class 2 : 
+Probability : 
+
+ans =
+
+    0.5061
+
+Mean : 
+
+mean2 =
+
+    2.9701    0.9882
+
+Covarience : 
+
+cov2 =
+
+    1.7090    1.4912
+    1.4912    1.6503
+
+Press any key to continue
+Meros E.4
+------------
+Expectation-Maximazation algorithm for 100 loops
+Press any key to continue
