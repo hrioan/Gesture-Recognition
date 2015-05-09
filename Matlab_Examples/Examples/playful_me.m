@@ -91,14 +91,27 @@
 % plot3(a, b, c) 
 
 
+% % 
+% % fs = 100;
+% % t = 0:1/fs:1;
+% % x = sin(2*pi*t*3)+0.25*sin(2*pi*t*40);
+% % y = medfilt1(x,10);
+% % figure,clf
+% % plot(t,x,t,y),grid on
+% % xlabel 'Time (s)',ylabel Signal
+% % legend('Original','Filtered')
+% % legend boxoff
 
-fs = 100;
-t = 0:1/fs:1;
-x = sin(2*pi*t*3)+0.25*sin(2*pi*t*40);
-y = medfilt1(x,10);
-figure,clf
-plot(t,x,t,y),grid on
-xlabel 'Time (s)',ylabel Signal
-legend('Original','Filtered')
-legend boxoff
 
+x = [0:100]
+A = [x; exp(x)];
+
+fileID = fopen('exp.txt','w');
+%fprintf(fileID,'%6s %12s\n','x','exp(x)');
+fprintf(fileID,'[ ');
+for i = 1:length(x)
+    fprintf(fileID,'%d ',x(i));
+end
+fprintf(fileID,']\n ');
+
+fclose(fileID);
