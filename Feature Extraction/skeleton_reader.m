@@ -1,11 +1,11 @@
-function  PD  = skeleton_reader( frames_fold_path, base_name ,startges, endges )
+function  PD  = skeleton_reader( frames_fold_path, base_name ,startges, endges)
 % Skeleton_Reader Extracts the pose descriptor for one specific gesture seq
 %   
 
 %% General Variables
 
 % Numbers of frames to be extracted and used in training
-nfrm = 20;
+nfrm = endges - startges;
 
 % For each joint there will be a struct with the following data
 P = struct('JointType','Hipcenter','TimeMtx', zeros(3,nfrm));
@@ -19,7 +19,7 @@ z = 0;                                        % #no frames passed to matrix
 
 for i = startFr:endFr
     
-    iptstr = sprintf('%s%s_Export/%s_%d.mat',frames_fold_path, base_name, base_name, i); %sprintf('./Sample00003_Export/Sample00003_%d.mat',i);
+    iptstr = sprintf('%s%s_Export/%s_%d.mat',frames_fold_path, base_name, base_name, i);
     S = load(iptstr);                               % load specific Frame
     
     %% 1.a Bypass frames with no Skeletal information
@@ -122,7 +122,7 @@ for i = 1:(z-1)
     tmp = projJnt(:,1);
     projJnt(:,1) = projJnt(:,2);
     projJnt(:,2) = tmp;
-
+    
     %clf(f2);
     %skeletonViewer(projJnt, false, i, S.Frame.Skeleton.JointType,'After PCA');
     
@@ -148,7 +148,50 @@ for i = 1:(z-1)
         end
     end
     
-    pose_descriptor_gesture = [ pose_descriptor_gesture(:); a(:)];
+    %% b.2 angle vector b
+    
+    b = zeros(9,1);
+    
+    % Calculate angles
+    for iter = 1:length(joint_sets)
+        % ...for now we are focusing on the x,y 2-d space
+        b(iter) = angleCalc(projJnt(joint_sets(iter,1),2:3), projJnt(joint_sets(iter,2),2:3), projJnt(joint_sets(iter,3),2:3) );
+    end
+    
+    % Rule: 1 ? ... angles 1,2,3,4,5 must be less than 180 degrees
+    for i2= 1:5
+        if b(i2) > 180.00
+           b(i2) = 360 - a(i2); 
+        end
+    end
+    
+    %% b.3 angle vector c
+    
+    c = zeros(9,1);
+    
+    % Calculate angles
+    for iter = 1:length(joint_sets)
+        % ...for now we are focusing on the x,y 2-d space
+        c(iter) = angleCalc(projJnt(joint_sets(iter,1),1:2:3), projJnt(joint_sets(iter,2),1:2:3), projJnt(joint_sets(iter,3),1:2:3) );
+    end
+    
+    % Rule: 1 ? ... angles 1,2,3,4,5 must be less than 180 degrees
+    for i2= 1:5
+        if c(i2) > 180.00
+           c(i2) = 360 - a(i2); 
+        end
+    end
+    
+    %% b.4 Distance vector d
+    % calculate 3 sets of distances between joints 
+    
+    ysets = [projJnt(12, :); projJnt(10, :); projJnt(9, :); projJnt(5, :); projJnt(6, :); projJnt(8, :)];
+    
+    % mahalanobis distance of hand and l-r shoulder joints
+    d1 = mahal(ysets,projJnt);
+    
+    nges = cat(1, a, b, c, d1);
+    pose_descriptor_gesture = [ pose_descriptor_gesture(:); nges(:) ];
    
     % -Edit-
     % -- we chose not to focus on angles b0-9, c0-9 etsimation for performance --
@@ -158,18 +201,6 @@ for i = 1:(z-1)
     % -Edit-
 end
 
-%% Pose descriptor finalization
-% All pose descriptors for the gestures must be of the same dimension even
-% if the extracted frames from the video are less. Introduce padding with 0
-
-if (length(pose_descriptor_gesture) < nfrm*9)
-    
-    a = zeros(nfrm*9 - length(pose_descriptor_gesture));
-    pose_descriptor_gesture = [ pose_descriptor_gesture(:); a(:)];
-end
-
 %fprintf('\n-- Pose descriptor for gesture #%d is: ', 0);
 PD = pose_descriptor_gesture;
-
-
 end

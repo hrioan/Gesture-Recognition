@@ -34,11 +34,14 @@ gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
     gui_State.gui_Callback = str2func(varargin{1});
+    %nargin
+    %disp(gui_State.gui_Callback);
 end
 
 if nargout
-    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
+    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:})
 else
+    disp('ELSE');
     gui_mainfcn(gui_State, varargin{:});
 end
 % End initialization code - DO NOT EDIT
@@ -141,7 +144,7 @@ ui = logical(rgb2gray(frame));
 
 
 % --- Executes on button press in loadButton.
-function loadButton_Callback(hObject, eventdata, handles)
+function loadButton_Callback(hObject, eventdata, handles, filename, path)
 % hObject    handle to loadButton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
@@ -155,6 +158,10 @@ function loadButton_Callback(hObject, eventdata, handles)
 % set(handles.soundButton,'Enable','on');
 % 
 % guidata(hObject, handles);
+
+hObject
+handles
+eventdata
 
 [filename,path] = uigetfile('*.zip');
 
@@ -198,6 +205,8 @@ end
 handles.audioplayer = audioplayer(handles.y,handles.fs);
 
 handles.filenameBase = filenameBase;
+
+handles
 
 set(handles.playButton,'Enable','on');
 set(handles.soundButton,'Enable','on');
