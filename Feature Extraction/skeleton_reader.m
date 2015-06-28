@@ -24,7 +24,7 @@ for i = startFr:endFr
     
     %% 1.a Bypass frames with no Skeletal information
     if (~nnz(S.Frame.Skeleton.PixelPosition))
-        fprintf('Skeleton joints not present for frame: %d in %s',i, base_name);
+        fprintf('Skeleton joints not present for frame: %d in %s \n',i, base_name);
         continue;
     end
     
@@ -50,7 +50,7 @@ for i = startFr:endFr
     %% 1.d Keep data to P matrix 
     z = z + 1;
     if (z > nfrm)
-        fprintf('Gathered the nesessary frames for computation');
+        fprintf('Gathered the nesessary frames for computation ::  ');
         break;
     end
     

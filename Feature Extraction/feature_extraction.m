@@ -3,12 +3,18 @@
 % path to feature info matrices
 path = '/media/scaler13/TOSHIBA EXT/Chalearn_datasets/MatlabViewer/Feature Extraction/feature_matrices';
 
-% sample #2 does not exist in training1 folder
-%noSamples = [1 3:47 49:199 200:222 250:330 332:348 351:347];       % >>> TO BE SET IN EVERY FEATURE EXTRACTION -- here training data taken <<<
-noSamples = [351:381 383:386 389:397 401 402];                      % Test data
-%%noSamples = [ 410:418 420:509];      % Testing Data 
+% Samples to be extracted
+%noSamples = [1 3:47 49:199 200:222 250:330 332:348 351:347];              % A. Training data
+%noSamples = [351:381 383:386 389:397 401 402];                             % B. Test data (to be used in Isolated testing)
+noSamples = [ 410:418 420:509];                                          % C. Test Data (to be used in embedded training) 
 %%noSamples = [200:215];
 
+% flag : 0 for isolated data sequences (A,B)
+%        1 returns entire sequences (A,B,C) 
+flag = 1;
+
+% T for training , I for testing 
+f2 = 'T';
 
 % Initialize Gesture ids field
 gesIds = gestureIds();
@@ -16,15 +22,15 @@ gesIds = gestureIds();
 % Open File to dump all coefficients
 fname = sprintf('Coeffs_in_text/AllSamples.txt');
 fileID = fopen(fname,'w');
-
-%% FEATURE EXTRACTION PHASE
+% ----------------------------------------------------------------------- %
+%% ------------------- Feature Extraction Phase -------------------------
 for i = 1:length(noSamples)
     
     % load each specific file
     feature_path = sprintf('%s/Sample%05d.mat', path, noSamples(i));
     L = load(feature_path);
     
-    fprintf('Processing file: Sample%05d.mat', noSamples(i));
+    fprintf('Processing file: Sample%05d.mat\n', noSamples(i));
     
     % > path to frames folder
     frames_fold_path = L.handles.path;
@@ -47,29 +53,63 @@ for i = 1:length(noSamples)
     seqGes = gestSeq(L.Video.Labels, ngest, gesIds);
     %------------------------------------------------------------------
     
-    % for each gesture call to get its Pose Descriptor 
-    for j = 1:ngest
-               
-        fprintf(fileID,'ISample%05d_Features_%02d [ \n',noSamples(i), seqGes(j));
+    if flag == 0
+        % for each gesture call to get its Pose Descriptor 
+        for j = 1:ngest
+
+            fprintf(fileID,'%sSample%05d_Features_%02d [ \n',f2,noSamples(i), seqGes(j));
+
+            %BLANK FILES
+            fname_2 = sprintf('Coeffs_in_text/%sSample%05d_Features_%02d.txt',f2,noSamples(i), seqGes(j));
+            fileID_2 = fopen(fname_2,'w');
+            fprintf(fileID_2,'Whatever');
+            fclose(fileID_2);
+            %BLANK FILES
+
+            %---------------------------------------------------------------
+
+            fprintf('Processing Gesture: %s \n',L.Video.Labels(j).Name);
+            startges = L.Video.Labels(j).Begin;
+            endges = L.Video.Labels(j).End;
+
+            PD = skeleton_reader(frames_fold_path, base_name, startges, endges);
+
+            % Write every Pose Descriptor to a file (according to prototype)
+            for i3 = 1:length(PD)
+                fprintf(fileID,'%f ',PD(i3));
+                if mod(i3, 33) == 0                                                  %% 9 htane PALIA !!!
+                    fprintf(fileID,'\n ');
+                end
+            end
+            fprintf(fileID,']\n ');
+        end
+    
+    elseif flag == 1
+       
+        %extract flags (if any)
+        s = '_';
+        if ngest == 0
+            s = 'ZZ';
+        else
+            for j = 1:ngest
+                s = sprintf('%s_%02d',s, seqGes(j));
+            end 
+        end
         
-        %BLANK FILES
-        fname_2 = sprintf('Coeffs_in_text/ISample%05d_Features_%02d.txt',noSamples(i), seqGes(j));
+        %extract sequences of gestures
+        fprintf(fileID,'%sSample%05d_%s [ \n', f2, noSamples(i),s);
+
+        %Create some files to help Kaldi categorize the data 
+        fname_2 = sprintf('Coeffs_in_text/%sSample%05d_%s.txt', f2, noSamples(i),s);
         fileID_2 = fopen(fname_2,'w');
-        fprintf(fileID_2,'Whatever');
         fclose(fileID_2);
-        %BLANK FILES
         
-        %---------------------------------------------------------------
-        
-        fprintf('Processing Gesture: %s',L.Video.Labels(j).Name);
-        startges = L.Video.Labels(j).Begin;
-        endges = L.Video.Labels(j).End;
-        
+        fprintf('Processing Gesture from file: Sample%05d \n', noSamples(i));
+        startges = 1;
+        endges = L.Video.NumFrames;
+
         PD = skeleton_reader(frames_fold_path, base_name, startges, endges);
-        
-        %fprintf('\t\t > Pose Descriptor:');
-        %PD';
-        
+
         % Write every Pose Descriptor to a file (according to prototype)
         for i3 = 1:length(PD)
             fprintf(fileID,'%f ',PD(i3));
@@ -77,10 +117,9 @@ for i = 1:length(noSamples)
                 fprintf(fileID,'\n ');
             end
         end
-        
         fprintf(fileID,']\n ');
-    
     end
+    
     
     disp('------ Completed --------');
     %clearvars -except PD i j nframes ngest sFreq base_name frames_fold_path
