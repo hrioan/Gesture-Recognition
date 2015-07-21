@@ -16,10 +16,13 @@ handles.playButton = 0.0027;
 handles.loadButton = 174.0026;
 handles.output = 173.0026;
 %% ???
-
+%%lla = [510 516:539 541:550 552:610]; 641:648 651 653:..684:689
+lla = [  697:710]
 % Load all zips from file , eg. [300:400] extracts Sample300.zip -
 % Sample400.zip
-for i = 401:403
+for j = 1:length(lla)
+    
+    i = lla(j);
     
     % load each zip file
     %zip_path = sprintf('%s/', path);

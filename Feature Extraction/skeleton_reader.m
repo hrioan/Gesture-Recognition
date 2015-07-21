@@ -3,7 +3,6 @@ function  PD  = skeleton_reader( frames_fold_path, base_name ,startges, endges)
 %   
 
 %% General Variables
-
 % Numbers of frames to be extracted and used in training
 nfrm = endges - startges;
 
@@ -74,7 +73,6 @@ for i = 1:20
 end
 
 %% 3. Angle Based Pose Descriptor
-
 %% a. Principal Component Analysis on 6 torso joints
 %       it is used to form a new body plane x,y,z
 
@@ -165,8 +163,7 @@ for i = 1:(z-1)
         end
     end
     
-    %% b.3 angle vector c
-    
+    %% b.3 angle vector c 
     c = zeros(9,1);
     
     % Calculate angles
@@ -193,12 +190,26 @@ for i = 1:(z-1)
     nges = cat(1, a, b, c, d1);
     pose_descriptor_gesture = [ pose_descriptor_gesture(:); nges(:) ];
    
-    % -Edit-
-    % -- we chose not to focus on angles b0-9, c0-9 etsimation for performance --
-    % angle vector b,c?
-    % distance vector d ? TBI? .. den kserw an paizoun
-    % d = zeros() concat vectors b = [b(:); a(:)]; 
-    % -Edit-
+    %% b.5 Eucleidian distances
+    
+    % the joints used in computation
+    joint_tags = [1 3 4 5 6 8 9 10 12 13 17];
+    f = zeros(55,1);
+    
+    count=1;
+    for h1= 1:11
+        for h2= (h1+1):11
+            f(count) = sqrt(sum((projJnt(joint_tags(h1), :) - projJnt(joint_tags(h2), :)).^2));
+            count = count + 1;
+        end
+    end
+    
+    pose_descriptor_gesture = [ pose_descriptor_gesture(:); f ];
+    
+    %disp('================');
+    %length(pose_descriptor_gesture)
+    %disp('================');
+    
 end
 
 %fprintf('\n-- Pose descriptor for gesture #%d is: ', 0);
