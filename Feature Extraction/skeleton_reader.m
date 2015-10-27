@@ -1,6 +1,6 @@
 function  PD  = skeleton_reader( frames_fold_path, base_name ,startges, endges)
-% Skeleton_Reader Extracts the pose descriptor for one specific gesture seq
-%   
+% Skeleton_Reader Extracts the pose descriptor for one specific gesture 
+% sequence  
 
 %% General Variables
 % Numbers of frames to be extracted and used in training

@@ -4,16 +4,17 @@
 path = '/media/scaler13/TOSHIBA EXT/Chalearn_datasets/MatlabViewer/Feature Extraction/feature_matrices';
 
 % Samples to be extracted
-%noSamples = [1 3:47 49:199 200:222 250:330 332:348 351:347 351:381 383:386 389:397 401 402 ];              % A. Training data
-%noSamples = [351:381 383:386 389:397 401 402];                             % B. Test data (to be used in Isolated testing)
-%noSamples = [ 410:418 420:509 510 516:539 541:550 552:620 ];                                          % C. Test Data (to be used in embedded training) 
+%noSamples = [1 3:47 49:199 200:222 250:330 332:348 351:347 351:381 383:386 389:397 401 402 ];      % A. Training data
+%noSamples = [351:381 383:386 389:397 401 402];                                                     % B. Test data (to be used in Isolated testing)
+%noSamples = [ 410:418 420:509 510 516:539 541:550 552:620 621:648 653:689 ];                       % C. Test Data (to be used in embedded training) 
 %%noSamples = [200:215];510 516:539 541:550 552:610
+%noSamples = [ 653:689 ];
 
-noSamples = [ 653:689 ];
+noSamples = [ 647 653:689 ];
 
 % flag : 0 for isolated data sequences (A,B)
 %        1 returns entire sequences (A,B,C) 
-flag = 0;
+flag = 1;
 
 % T for training , I for testing 
 f2 = 'I';
@@ -78,8 +79,9 @@ for i = 1:length(noSamples)
 
             PD = skeleton_reader(frames_fold_path, base_name, startges, endges);
 
-            % write to mat
             mfile.cmtx = reshape(PD,88,length(PD)/88)';
+            % write to mat %%%%%%% HOLY COWBONES %%%%%%%
+            %mfile.cmtx = todelta(reshape(PD,88,length(PD)/88)',1);
             
             % Write every Pose Descriptor to a file (according to prototype)
             for i3 = 1:length(PD)
@@ -124,6 +126,8 @@ for i = 1:length(noSamples)
         
         % write to mat
         mfile.cmtx = reshape(PD,88,length(PD)/88)';
+        % write to mat %%%%%%% HOLY COWBONES %%%%%%%
+        %mfile.cmtx = todelta(reshape(PD,88,length(PD)/88)',1);
         
         % Write every Pose Descriptor to a file (according to prototype)
         for i3 = 1:length(PD)

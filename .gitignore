@@ -24,6 +24,7 @@ diary
 # Project specifics - KALDI
 #======================
 *.txt
+*.mfc
 
 
 # =================

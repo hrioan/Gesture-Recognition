@@ -8,9 +8,6 @@ function [ angle ] = angleCalc( right, center, left )
 right = right - center;
 left = left - center;
 
-% Plot , just for visualization purposes 
-% ...
-
 % Calclulate Angle (in degrees)
 
 CosTheta = dot(right, left)/(norm(right)*norm(left));
