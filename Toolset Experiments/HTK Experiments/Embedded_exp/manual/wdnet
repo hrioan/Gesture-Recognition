@@ -1,0 +1,86 @@
+VERSION=1.0
+N=23   L=61   
+I=0    W=VQ                  
+I=1    W=!NULL               
+I=2    W=VA                  
+I=3    W=TT                  
+I=4    W=ST                  
+I=5    W=SP                  
+I=6    W=PR                  
+I=7    W=PF                  
+I=8    W=OK                  
+I=9    W=NU                  
+I=10   W=MC                  
+I=11   W=FU                  
+I=12   W=FN                  
+I=13   W=FM                  
+I=14   W=DC                  
+I=15   W=CV                  
+I=16   W=CP                  
+I=17   W=CN                  
+I=18   W=CF                  
+I=19   W=BS                  
+I=20   W=BN                  
+I=21   W=!NULL               
+I=22   W=!NULL               
+J=0     S=1    E=0    
+J=1     S=22   E=0    
+J=2     S=0    E=1    
+J=3     S=2    E=1    
+J=4     S=3    E=1    
+J=5     S=4    E=1    
+J=6     S=5    E=1    
+J=7     S=6    E=1    
+J=8     S=7    E=1    
+J=9     S=8    E=1    
+J=10    S=9    E=1    
+J=11    S=10   E=1    
+J=12    S=11   E=1    
+J=13    S=12   E=1    
+J=14    S=13   E=1    
+J=15    S=14   E=1    
+J=16    S=15   E=1    
+J=17    S=16   E=1    
+J=18    S=17   E=1    
+J=19    S=18   E=1    
+J=20    S=19   E=1    
+J=21    S=20   E=1    
+J=22    S=1    E=2    
+J=23    S=22   E=2    
+J=24    S=1    E=3    
+J=25    S=22   E=3    
+J=26    S=1    E=4    
+J=27    S=22   E=4    
+J=28    S=1    E=5    
+J=29    S=22   E=5    
+J=30    S=1    E=6    
+J=31    S=22   E=6    
+J=32    S=1    E=7    
+J=33    S=22   E=7    
+J=34    S=1    E=8    
+J=35    S=22   E=8    
+J=36    S=1    E=9    
+J=37    S=22   E=9    
+J=38    S=1    E=10   
+J=39    S=22   E=10   
+J=40    S=1    E=11   
+J=41    S=22   E=11   
+J=42    S=1    E=12   
+J=43    S=22   E=12   
+J=44    S=1    E=13   
+J=45    S=22   E=13   
+J=46    S=1    E=14   
+J=47    S=22   E=14   
+J=48    S=1    E=15   
+J=49    S=22   E=15   
+J=50    S=1    E=16   
+J=51    S=22   E=16   
+J=52    S=1    E=17   
+J=53    S=22   E=17   
+J=54    S=1    E=18   
+J=55    S=22   E=18   
+J=56    S=1    E=19   
+J=57    S=22   E=19   
+J=58    S=1    E=20   
+J=59    S=22   E=20   
+J=60    S=1    E=21   

@@ -1,0 +1,30 @@
+
+\data\
+ngram 1=21
+
+\1-grams:
+-1 vattene
+-1 vieniqui
+-1 perfetto
+-1 furbo
+-1 cheduepalle
+-1 chevuoi
+-1 daccordo
+-1 seipazzo
+-1 combinato
+-1 freganiente
+-1 ok
+-1 cosatifarei
+-1 basta
+-1 prendere
+-1 noncenepiu
+-1 fame
+-1 tantotempo
+-1 buonissimo
+-1 messidaccordo
+-1 sonostufo
+
+-99 <s>
+-1 </s>
+
+\end\
